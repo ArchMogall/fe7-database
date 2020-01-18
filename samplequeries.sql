@@ -8,7 +8,7 @@ WITH T AS (
 			   CONVERT(int, G.Luck) +
 			   CONVERT(int, G.Defense) +
 			   CONVERT(int, G.Resistance)
-	) AS 'TotalGrowths'
+		   ) AS 'TotalGrowths'
 	FROM Units.CharGrowthRates AS G
 	GROUP BY G.GrowthRateID
 )
