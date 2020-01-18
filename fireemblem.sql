@@ -2,7 +2,7 @@
 
 -----------------------------By Angela Enns-------------------------------
 
-------------------------(Fire Emblem © Nintendo)--------------------------*/
+------------------------(Fire Emblem Â© Nintendo)--------------------------*/
 
 
 
@@ -2152,13 +2152,3 @@ AS
 	ELSE
 		PRINT('That shop was not found.');
 GO
-				
-
-/*Running stored procedures
-EXEC SpViewSupports 'Rebecca';
-
-EXEC SpViewShopStock 19;
-*/
-
-/*USE master;
-DROP DATABASE FireEmblem;*/
