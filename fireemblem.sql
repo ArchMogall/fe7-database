@@ -2,10 +2,30 @@
 
 -----------------------------By Angela Enns-------------------------------
 
-------------------------(Fire Emblem © Nintendo)--------------------------*/
+------------------------(Fire Emblem © Nintendo)--------------------------
 
 
 
+----------------------------TABLE OF CONTENTS-----------------------------
+
+	1 CREATION
+		1.1 CREATING THE DATABASE
+		1.2 CREATING THE SCHEMAS
+		1.3 CREATING THE TABLES
+			1.3.1 INTERSECT TABLES
+	2 INDEXES
+	3 DATA INSERTION
+	4 VIEWS
+	5 STORED PROCEDURES
+	
+-------------------------------------------------------------------------*/
+
+
+
+
+--1 CREATION
+
+--1.1 CREATING THE DATABASE
 
 USE master;
 CREATE DATABASE FireEmblem;
@@ -17,7 +37,7 @@ GO
 
 
 
---CREATING THE SCHEMAS
+--1.2 CREATING THE SCHEMAS
 
 CREATE SCHEMA Inventory;
 GO
@@ -31,8 +51,7 @@ GO
 
 
 
-
---CREATING THE TABLES
+--1.3 CREATING THE TABLES
 
 CREATE TABLE Inventory.WeaponTypes (
     TypeID int IDENTITY NOT NULL,
@@ -283,7 +302,8 @@ CREATE TABLE Units.Supports (
 		ON DELETE NO ACTION
 );
 
---INTERSECT TABLES
+
+--1.3.1 INTERSECT TABLES
 --These are named by combining the names of the tables they link
 
 --The intersect table linking Chapters.Shops and Inventory.Weapons
@@ -381,7 +401,7 @@ GO
 
 
 
---INDEXES
+--2 INDEXES
 
 --Foreign keys
 CREATE NONCLUSTERED INDEX IxWeapons_TypeID
@@ -477,7 +497,7 @@ ON Chapters.ShopItems (ItemID);
 
 
 
---INSERTING DATA
+--3 DATA INSERTION
 
 INSERT INTO Inventory.WeaponTypes
 	(Name)
@@ -1900,7 +1920,7 @@ GO
 
 
 
---VIEWS
+--4 VIEWS
 
 --Weapon names, types, elements and effects
 CREATE VIEW Inventory.VwWeaponDetails
@@ -2066,7 +2086,7 @@ GO
 
 
 
---STORED PROCEDURES
+--5 STORED PROCEDURES
 
 --Viewing a character's supports
 CREATE PROC SpViewSupports
