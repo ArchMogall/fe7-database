@@ -2018,7 +2018,9 @@ GO
 --Character starting classes and affinities
 CREATE VIEW Units.VwCharDetails
 AS
-	SELECT CH.Name AS 'Character', C.Name AS 'Starting class', A.Name AS 'Affinity'
+	SELECT CH.Name AS 'Character',
+		C.Name AS 'Starting class',
+		A.Name AS 'Affinity'
 	FROM Units.Characters AS CH
 	JOIN Units.Classes AS C
 		ON CH.StartingClassID = C.ClassID
