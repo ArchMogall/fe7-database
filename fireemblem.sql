@@ -2094,6 +2094,8 @@ GO
 CREATE PROC SpViewSupports
 	@Name varchar(15)
 AS
+
+	--Checking to see if the character has supports
 	IF EXISTS (
 		SELECT *
 		FROM Units.Supports AS S
@@ -2102,8 +2104,10 @@ AS
 		JOIN Units.Characters AS C2
 			ON S.Char2ID = C2.CharID
 		WHERE C1.Name = @Name
-			OR C2.Name = @Name)
+			OR C2.Name = @Name
+		)
 
+		--If the character has supports, display results
 		SELECT C1.Name AS 'Character 1',
 			C2.Name AS 'Character 2',
 			S.StartingPoints AS 'Starting points',
@@ -2116,6 +2120,7 @@ AS
 		WHERE C1.Name = @Name
 			OR C2.Name = @Name;
 
+	--If the character has no supports or doesn't exist, display appropriate 404 message
 	ELSE IF @Name = 'Nils'
 		PRINT('Nils has no supports.');
 	
@@ -2127,16 +2132,22 @@ GO
 CREATE PROC SpViewShopStock
 	@ShopID int
 AS
+
+	--Checking to see if the shop sells weapons
 	IF EXISTS (
 		SELECT *
 		FROM Chapters.ShopWeapons AS SW
-		WHERE SW.ShopID = @ShopID)
-
+		WHERE SW.ShopID = @ShopID
+		)
+		
+		--If the shop sells weapons, we check to see if it also sells items
 		IF EXISTS (
 			SELECT *
 			FROM Chapters.ShopItems AS SI
-			WHERE SI.ShopID = @ShopID)
+			WHERE SI.ShopID = @ShopID
+			)
 
+			--If the shop sells both weapons and items, display results
 			SELECT W.Name AS 'Weapon or item name',
 				W.Cost
 			FROM Inventory.Weapons AS W
@@ -2151,6 +2162,7 @@ AS
 				ON I.ItemID = SI.ItemID
 			WHERE @ShopID = SI.ShopID;
 
+		--If the shop only sells weapons, display results
 		ELSE
 			SELECT W.Name AS 'Weapon name',
 				W.Cost
@@ -2159,11 +2171,14 @@ AS
 				ON SW.WeaponID = W.WeaponID
 			WHERE @ShopID = SW.ShopID;
 
+	--If the shop doesn't sell weapons, we check to see if it sells items
 	ELSE IF EXISTS (
 		SELECT *
 		FROM Chapters.ShopItems AS SI
-		WHERE SI.ShopID = @ShopID)
+		WHERE SI.ShopID = @ShopID
+		)
 
+		--If the shop sells items, display results
 		SELECT I.Name AS 'Item name',
 			I.Cost
 		FROM Inventory.Items AS I
@@ -2171,6 +2186,7 @@ AS
 			ON I.ItemID = SI.ItemID
 		WHERE @ShopID = SI.ShopID;
 	
+	--If the shop sells neither weapons nor items, it doesn't exist; display 404 message
 	ELSE
 		PRINT('That shop was not found.');
 GO
