@@ -1,14 +1,14 @@
 --Obtaining and rating characters' total growths: practice with CONVERT, CASE, CTEs
 WITH T AS (
 	SELECT G.GrowthRateID,
-		   SUM(CONVERT(int, G.HP) +
-			   CONVERT(int, G.StrengthMagic) +
-			   CONVERT(int, G.Skill) +
-			   CONVERT(int, G.Speed) +
-			   CONVERT(int, G.Luck) +
-			   CONVERT(int, G.Defense) +
-			   CONVERT(int, G.Resistance)
-		   ) AS 'TotalGrowths'
+		SUM(CONVERT(int, G.HP) +
+			CONVERT(int, G.StrengthMagic) +
+			CONVERT(int, G.Skill) +
+			CONVERT(int, G.Speed) +
+			CONVERT(int, G.Luck) +
+			CONVERT(int, G.Defense) +
+			CONVERT(int, G.Resistance)
+		) AS 'TotalGrowths'
 	FROM Units.CharGrowthRates AS G
 	GROUP BY G.GrowthRateID
 )
